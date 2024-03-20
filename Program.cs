@@ -17,17 +17,17 @@ public class Program
             Serialization.Load("save");
 
             if (Serialization.CurrentSaveData.Data.ContainsKey("destination")) {
-                string choice = Serialization.CurrentSaveData.Data["destination"];
+                int choice = int.Parse(Serialization.CurrentSaveData.Data["destination"]);
 
                 switch (choice)
                 {
-                    case "0":
+                    case 0:
                         InVegas();
                         break;
-                    case "1":
+                    case 1:
                         TakeMeThere();
                         break;
-                    case "2":
+                    case 2:
                         DropMeOff();
                         break;
                 }
