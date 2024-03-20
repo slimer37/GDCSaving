@@ -5,5 +5,5 @@ namespace GDCSaving;
 public class SaveData
 {
     [JsonInclude]
-    public Dictionary<string, object> Data = new();
+    public Dictionary<string, string> Data = new();
 }

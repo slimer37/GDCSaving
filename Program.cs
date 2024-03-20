@@ -11,8 +11,32 @@ public class Program
         if (!c.PromptYN("Play?")) {
             return;
         }
+        
+        if (File.Exists("save"))
+        {
+            Serialization.Load("save");
 
-        Part1Taxi();
+            if (Serialization.CurrentSaveData.Data.ContainsKey("destination")) {
+                string choice = Serialization.CurrentSaveData.Data["destination"];
+
+                switch (choice)
+                {
+                    case "0":
+                        InVegas();
+                        break;
+                    case "1":
+                        TakeMeThere();
+                        break;
+                    case "2":
+                        DropMeOff();
+                        break;
+                }
+            }
+        }
+        else
+        {
+            Part1Taxi();
+        }
 
         // Reset console format
 
@@ -32,9 +56,9 @@ public class Program
 
         int choice = c.PresentChoice("\"Take me back to the hotel.\"", "\"Just take me wherever I was going.\"", "\"Drop me off here.\"");
         
-        Serialization.CurrentSaveData.Data["destination"] = choice;
+        Serialization.CurrentSaveData.Data["destination"] = choice.ToString();
 
-        // { "destination" : choice 0, 1, 2 }
+        // { "destination" : choice "0", "1", "2" }
 
         Serialization.Save("save");
 
