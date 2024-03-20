@@ -2,16 +2,16 @@
 
 public class Program
 {
-    public static async Task Main(string[] args)
+    public static void Main(string[] args)
     {
         if (File.Exists("save"))
             Serialization.Load("save");
 
         AdventureConsole c = new AdventureConsole(20);
 
-        await c.WriteLine("Hello...?");
+        c.WriteLine("Hello...?");
 
-        int choice = await c.PresentChoice("Talk", "B", "C");
+        int choice = c.PresentChoice("Talk", "B", "C");
 
         Serialization.CurrentSaveData.Data["choice"] = choice;
 

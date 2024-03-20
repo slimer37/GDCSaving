@@ -9,24 +9,24 @@ public class AdventureConsole
 
     public int PrintIntervalMs { get; set; }
 
-    public async Task Write(string text)
+    public void Write(string text)
     {
         foreach (char c in text)
         {
             Console.Write(c);
-            await Task.Delay(PrintIntervalMs);
+            Thread.Sleep(PrintIntervalMs);
         }
     }
 
-    public async Task WriteLine(string text) => await Write(text + '\n');
+    public void WriteLine(string text) => Write(text + '\n');
 
-    public async Task<int> PresentChoice(params string[] choices)
+    public int PresentChoice(params string[] choices)
     {
         int selection = 0;
 
         for (int i = 0; i < choices.Length; i++)
         {
-            await WriteLine(FormatChoice(choices[i], i));
+            WriteLine(FormatChoice(choices[i], i));
         }
 
         ConsoleKeyInfo key;
@@ -53,6 +53,7 @@ public class AdventureConsole
             }
 
             selection = (selection + choices.Length) % choices.Length;
+            
         } while (key.Key != ConsoleKey.Enter);
 
         return selection;
