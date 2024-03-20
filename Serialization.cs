@@ -8,7 +8,8 @@ public static class Serialization
 
     public static void Save(string path)
     {
-        File.WriteAllText(path, JsonSerializer.Serialize(CurrentSaveData, new JsonSerializerOptions() { WriteIndented = true }));
+        string json = JsonSerializer.Serialize(CurrentSaveData, new JsonSerializerOptions() { WriteIndented = true });
+        File.WriteAllText(path, json);
     }
 
     public static void Load(string path)

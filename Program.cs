@@ -2,23 +2,56 @@
 
 public class Program
 {
+    static AdventureConsole c = new AdventureConsole(20);
+
     public static void Main(string[] args)
     {
-        if (File.Exists("save"))
-            Serialization.Load("save");
+        c.WriteSection("\n\nWelcome to GENERIC TEXT ADVENTURE WITHOUT SAVING by slimer37.");
 
-        AdventureConsole c = new AdventureConsole(20);
+        if (!c.PromptYN("Play?")) {
+            return;
+        }
 
-        c.WriteLine("Hello...?");
-
-        int choice = c.PresentChoice("Talk", "B", "C");
-
-        Serialization.CurrentSaveData.Data["choice"] = choice;
-
-        Serialization.Save("save");
+        Part1Taxi();
 
         // Reset console format
 
         Console.Write("\u001b[0m");
+    }
+
+    static void Part1Taxi()
+    {
+        c.WriteSection("You find yourself in the back of a taxi with just 50 dollars in your pocket.\n" +
+        "You don't know how you got there, but you really need some water.");
+
+        c.WriteSection("The taxi driver looks at you and tells you you're in Nevada. He notices you're awake and does some explaining.\n" +
+        "Apparently you fell asleep for a bit and were getting out of some hotel in Vegas.\n" +
+        "\"I was taking you to the border to Cali but I imagine you might wanna go somewhere else now that you're sane.\"");
+
+        c.WriteSection("You're stopped at a light in some downtown-looking zone and there's a payphone a few feet away.");
+
+        int choice = c.PresentChoice("\"Take me back to the hotel.\"", "\"Just take me wherever I was going.\"", "\"Drop me off here.\"");
+
+        var nextPaths = new Action[] { InVegas, TakeMeThere, DropMeOff };
+
+        nextPaths[choice].Invoke();
+    }
+
+    static void InVegas()
+    {
+        c.WriteSection("He says okay and makes a U-turn." +
+        "\nYou know who to talk to once you get there and they won't like what you have to say.");
+    }
+
+    static void TakeMeThere()
+    {
+        c.WriteSection("He says okay and continues straight." +
+        "\nYou clearly don't want anything to do with where you just escaped from.");
+    }
+
+    static void DropMeOff()
+    {
+        c.WriteSection("He says okay and unlocks the door." +
+        "\nYou really need to talk to some authorities because you can at least remember what was at the hotel.");
     }
 }
