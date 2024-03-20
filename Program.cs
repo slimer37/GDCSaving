@@ -16,5 +16,9 @@ public class Program
         Serialization.CurrentSaveData.Data["choice"] = choice;
 
         Serialization.Save("save");
+
+        // Reset console format
+
+        Console.Write("\u001b[0m");
     }
 }
