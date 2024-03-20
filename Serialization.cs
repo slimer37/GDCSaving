@@ -14,6 +14,7 @@ public static class Serialization
 
     public static void Load(string path)
     {
-        CurrentSaveData = JsonSerializer.Deserialize<SaveData>(File.ReadAllText(path)) ?? new();
+        string json = File.ReadAllText(path);
+        CurrentSaveData = JsonSerializer.Deserialize<SaveData>(json) ?? new();
     }
 }

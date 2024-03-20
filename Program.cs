@@ -2,11 +2,11 @@
 
 public class Program
 {
-    static AdventureConsole c = new AdventureConsole(20);
+    static AdventureConsole c = new AdventureConsole(10);
 
     public static void Main(string[] args)
     {
-        c.WriteSection("\n\nWelcome to GENERIC TEXT ADVENTURE WITHOUT SAVING by slimer37.");
+        c.WriteSection("\n\nWelcome to GENERIC TEXT ADVENTURE WITH SAVING by slimer37.");
 
         if (!c.PromptYN("Play?")) {
             return;
@@ -31,10 +31,25 @@ public class Program
         c.WriteSection("You're stopped at a light in some downtown-looking zone and there's a payphone a few feet away.");
 
         int choice = c.PresentChoice("\"Take me back to the hotel.\"", "\"Just take me wherever I was going.\"", "\"Drop me off here.\"");
+        
+        Serialization.CurrentSaveData.Data["destination"] = choice;
 
-        var nextPaths = new Action[] { InVegas, TakeMeThere, DropMeOff };
+        // { "destination" : choice 0, 1, 2 }
 
-        nextPaths[choice].Invoke();
+        Serialization.Save("save");
+
+        switch (choice)
+        {
+            case 0:
+                InVegas();
+                break;
+            case 1:
+                TakeMeThere();
+                break;
+            case 2:
+                DropMeOff();
+                break;
+        }
     }
 
     static void InVegas()
